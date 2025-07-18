@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+requests
+rich
+GitPython
+nbformat
+bandit
+radon
+tox

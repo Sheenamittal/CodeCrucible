@@ -1,0 +1,12 @@
+[
+  {
+    "id": "inefficient_loop",
+    "bad_code": "def find_item(items, target):\n    for i in range(len(items)):\n        if items[i] == target:\n            return i\n    return -1",
+    "good_code": "def find_item(items, target):\n    try:\n        return items.index(target)\n    except ValueError:\n        return -1"
+  },
+  {
+    "id": "hardcoded_string",
+    "bad_code": "def get_greeting():\n    return 'Hello, World!'",
+    "good_code": "def get_greeting(name='World'):\n    GREETING_TEMPLATE = 'Hello, {}!'\n    return GREETING_TEMPLATE.format(name)"
+  }
+]

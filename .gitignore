@@ -1,0 +1,47 @@
+# --- Environments ---
+# Ignore virtual environments
+venv/
+project_env/
+
+# Ignore sensitive environment variables
+.env
+
+
+# --- Python Artifacts ---
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+# --- Project-Specific Files & Directories ---
+# Ignore the temporary directory for cloned repositories
+temp_repo/
+
+# Ignore output reports
+analysis_report.json
+analysis_reports/
+
+# Ignore local test directories
+my_test_clone/
+flask-test-clone/
+perfect_test_repo/
+
+
+# --- Testing Artifacts ---
+# Ignore pytest and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+
+# --- IDE / Editor Files ---
+# Ignore common editor metadata
+.vscode/
+.idea/
+
+
+# --- OS Files ---
+# Ignore macOS specific files
+.DS_Store
