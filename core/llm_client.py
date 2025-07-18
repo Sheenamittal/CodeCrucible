@@ -146,3 +146,50 @@ def get_algorithmic_optimization(code_snippet: str) -> dict:
         return json.loads(content_string)
     except Exception as e:
         return {"error": f"API request failed: {e}"}
+    
+# Add this new function to core/llm_client.py
+
+def find_issues_in_code(code_snippet: str, language: str) -> dict:
+    """
+    Uses an LLM to find potential issues in a code snippet of any language.
+    """
+    if not API_KEY:
+        return {"error": "API_KEY not found."}
+
+    headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+    prompt = f"""
+    You are an expert static analysis tool. Analyze the following code snippet written in {language}.
+    Identify the single most critical issue related to code smells (e.g., high complexity, duplication),
+    performance bottlenecks, or common security vulnerabilities.
+
+    If a critical issue is found, your response MUST be a single, valid JSON object with three keys:
+    1. "issue_found": A boolean set to true.
+    2. "description": A short, one-sentence description of the issue.
+    3. "code_snippet": A string containing the exact lines of code with the issue.
+    
+    If no significant issues are found, return a JSON object with one key:
+    1. "issue_found": A boolean set to false.
+
+    Language: {language}
+    Code:
+    ```
+    {code_snippet}
+    ```
+    """
+    payload = {
+        "model": MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.1,
+        "response_format": {"type": "json_object"},
+    }
+    
+    try:
+        response = requests.post(API_URL, headers=headers, json=payload, timeout=90)
+        response.raise_for_status()
+        response_data = response.json()
+        if 'error' in response_data:
+            return {"error": response_data['error'].get('message', 'Unknown API error')}
+        content_string = response_data['choices'][0]['message']['content']
+        return json.loads(content_string)
+    except Exception as e:
+        return {"error": f"API request for analysis failed: {e}"}

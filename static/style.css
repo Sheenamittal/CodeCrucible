@@ -1,0 +1,36 @@
+/* Layout and Spacing */
+body {
+    padding-bottom: 4rem;
+}
+
+.grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--pico-spacing);
+}
+
+/* CodeMirror Editor Styling */
+.CodeMirror {
+    border: 1px solid var(--pico-form-element-border-color);
+    border-radius: var(--pico-border-radius);
+    height: 250px;
+    font-size: 0.9em;
+}
+
+/* Loading Indicator */
+[aria-busy="true"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+[aria-busy="true"]::before {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Results Display Styling */
+#results-output h5 {
+    margin-top: var(--pico-spacing);
+    margin-bottom: calc(var(--pico-spacing) / 2);
+}

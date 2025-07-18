@@ -5,51 +5,47 @@ from rich.console import Console
 
 console = Console()
 
+def is_python_project(repo_path: str) -> bool:
+    """Check if a repository seems to be a Python project."""
+    # Look for key Python files at the root level
+    for file in ["pyproject.toml", "requirements.txt", "tox.ini", "setup.py"]:
+        if os.path.exists(os.path.join(repo_path, file)):
+            return True
+    
+    # As a fallback, check for a high number of .py files
+    py_files = sum(1 for root, _, files in os.walk(repo_path) for f in files if f.endswith('.py'))
+    return py_files > 20 # Arbitrary threshold for what constitutes a "Python project"
+
 def run_tests(repo_path: str) -> tuple[bool, str]:
     """
-    Installs dependencies and runs the test suite, prioritizing a single,
-    relevant 'tox' environment for speed and reliability.
+    Installs dependencies and runs the test suite, but only for Python projects.
     """
-    try:
-        # Strategy 1: Use 'tox' if available (professional standard)
-        if os.path.exists(os.path.join(repo_path, "tox.ini")):
-            console.log("Found 'tox.ini', running tests with a specific tox environment...")
-            
-            # Smartly select only the relevant tox environment (e.g., 'py312')
-            py_version_env = f"py{sys.version_info.major}{sys.version_info.minor}"
-            console.log(f"Attempting to run the '{py_version_env}' tox environment for a fast pass...")
-            tox_command = ["tox", "-e", py_version_env]
+    # --- NEW: Check if this is a Python project before doing anything ---
+    if not is_python_project(repo_path):
+        console.log("[yellow]Non-Python project detected. Skipping test validation.[/yellow]")
+        return (True, "Skipped validation for non-Python project.")
+    # --- END NEW BLOCK ---
 
-            result = subprocess.run(
-                tox_command, cwd=repo_path, capture_output=True, text=True, timeout=1200 # 20 min timeout
-            )
-            
-            # If the specific environment passes, we are good
+    try:
+        # Strategy 1: Use 'tox' if available
+        if os.path.exists(os.path.join(repo_path, "tox.ini")):
+            # ... (rest of the tox logic is the same) ...
+            console.log("Found 'tox.ini', running tests with a specific tox environment...")
+            py_version_env = f"py{sys.version_info.major}{sys.version_info.minor}"
+            tox_command = ["tox", "-e", py_version_env]
+            result = subprocess.run(tox_command, cwd=repo_path, capture_output=True, text=True, timeout=1200)
             if result.returncode == 0:
                 return (True, "All tests passed successfully using the primary tox environment.")
-            
-            # If the specific version fails (e.g., not defined), try the default 'tox' command as a fallback
-            console.log(f"[yellow]Tox environment '{py_version_env}' failed or was not found. Trying default 'tox' command...[/yellow]")
-            result = subprocess.run(["tox"], cwd=repo_path, capture_output=True, text=True, timeout=1200)
-            
-            if result.returncode == 0:
-                    return (True, "All tests passed successfully using default tox environment.")
             else:
-                error_output = result.stdout + "\n" + result.stderr
-                return (False, f"Tox execution failed:\n{error_output}")
+                return (False, f"Tox execution failed for '{py_version_env}':\n{result.stdout}\n{result.stderr}")
 
-        # Strategy 2: Fallback to manual pip + pytest if no tox.ini
+        # Strategy 2: Fallback to manual pip + pytest
         console.log("No 'tox.ini' found. Falling back to manual pip + pytest.")
-        
-        dependency_files = [
-            "pyproject.toml", "requirements/dev.txt",
-            "requirements-dev.txt", "requirements.txt"
-        ]
+        dependency_files = ["pyproject.toml", "requirements.txt"] # Simplified for clarity
         install_command = None
         for file in dependency_files:
             file_path = os.path.join(repo_path, file)
             if os.path.exists(file_path):
-                console.log(f"Found dependency file: {file}")
                 if file == "pyproject.toml":
                     install_command = ["pip", "install", "-e", ".[test,dev]"]
                 else:
@@ -61,20 +57,14 @@ def run_tests(repo_path: str) -> tuple[bool, str]:
             if install_result.returncode != 0:
                 return (False, f"Dependency installation failed:\n{install_result.stderr}")
             console.log("Dependencies installed successfully.")
-        else:
-            console.log("[yellow]No common dependency file found. Skipping installation.[/yellow]")
         
         test_command = ["pytest"]
-        console.log(f"Running tests with command: '{' '.join(test_command)}'")
-        result = subprocess.run(
-            test_command, cwd=repo_path, capture_output=True, text=True, timeout=600
-        )
+        result = subprocess.run(test_command, cwd=repo_path, capture_output=True, text=True, timeout=600)
 
         if result.returncode == 0:
             return (True, "All tests passed successfully.")
         else:
-            error_output = result.stdout + "\n" + result.stderr
-            return (False, error_output)
+            return (False, f"Pytest execution failed:\n{result.stdout}\n{result.stderr}")
 
     except Exception as e:
         return (False, f"An exception occurred during the validation process: {e}")

@@ -8,3 +8,6 @@ nbformat
 bandit
 radon
 tox
+pytest
+iniconfig
+blinker
