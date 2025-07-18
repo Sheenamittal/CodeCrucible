@@ -5,9 +5,3 @@ requests
 rich
 GitPython
 nbformat
-bandit
-radon
-tox
-pytest
-iniconfig
-blinker

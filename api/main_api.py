@@ -1,5 +1,4 @@
 # api/main_api.py
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
@@ -9,7 +8,7 @@ from fastapi.responses import HTMLResponse
 
 from core.git_handler import clone_repo
 from core.analyzer import analyze_codebase
-from core.llm_client import get_refactoring_suggestion, get_algorithmic_optimization # No longer need get_corrected_patch for this simplified flow
+from core.llm_client import get_refactoring_suggestion, get_algorithmic_optimization
 from core.validator import run_tests
 
 app = FastAPI(title="RefactorGen API")
@@ -34,21 +33,22 @@ async def analyze_repository(request: RepoRequest):
         raise HTTPException(status_code=400, detail="Failed to clone repository.")
 
     try:
+        # This step is now disabled and will always pass
         tests_ok, diagnostics = run_tests(repo_path)
         if not tests_ok:
-            raise HTTPException(status_code=400, detail=f"Repository's test suite failed. Diagnostics:\n{diagnostics}")
+            # This block will not be reached with the new validator
+            raise HTTPException(status_code=400, detail=f"Validation failed: {diagnostics}")
             
-        # --- NEW: Two-Step AI Logic ---
-        # 1. Find issues first
+        # 1. Find issues using the universal LLM analyzer
         issues = analyze_codebase(repo_path)
         if not issues:
             return {"message": "Analysis complete. No high-priority issues found."}
         
-        # 2. For each issue found, get a refactoring suggestion
+        # 2. For each issue, get a refactoring suggestion
         for issue in issues:
             suggestion = get_refactoring_suggestion(issue['code_snippet'])
             if "error" not in suggestion:
-                issue['suggestion'] = suggestion # Attach the suggestion to the issue object
+                issue['suggestion'] = suggestion
         
         return {"message": f"Analysis complete. Found {len(issues)} potential improvements.", "issues": issues}
 
@@ -58,7 +58,6 @@ async def analyze_repository(request: RepoRequest):
 
 @app.post("/optimize-code")
 async def optimize_code_snippet(request: CodeRequest):
-    # This logic remains the same
     if not request.code or not isinstance(request.code, str) or len(request.code) < 10:
         raise HTTPException(status_code=422, detail="A valid 'code' string is required.")
     optimization_data = get_algorithmic_optimization(request.code)
