@@ -1,5 +1,3 @@
-# core/git_handler.py
-
 import git
 import shutil
 import os

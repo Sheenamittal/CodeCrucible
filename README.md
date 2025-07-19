@@ -4,7 +4,8 @@
 ![Framework](https://img.shields.io/badge/framework-FastAPI-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-An AI-powered, full-stack application that analyzes, refactors, and optimizes code across multiple languages, acting as an intelligent pair programmer.
+This is a full-stack application that acts as an AI-powered pair programmer. You can give it a whole GitHub repository or just a single function, and it will provide intelligent suggestions for improvement across multiple languages.
+
 
 ---
 
@@ -22,7 +23,7 @@ This project was built to explore the challenges of creating a reliable, multi-l
 
 * **Multi-Language Code Analysis:** Analyzes code in Python, Java, C++, JavaScript, HTML, and CSS using a flexible, LLM-based approach.
 * **AI-Powered Refactoring:** Identifies code smells and vulnerabilities and provides intelligent, refactored code snippets with clear explanations.
-* **Algorithmic Optimization:** A dedicated endpoint analyzes the time and space complexity of Python functions and suggests optimal solutions.
+* **Algorithmic Optimization:** Got a brute-force function? Paste it into the optimizer. It will analyze the time and space complexity and provide a more efficient, time-optimized solution with a full Big O analysis.
 * **Interactive Web UI:** A clean, modern frontend built with vanilla HTML/CSS/JS that includes:
     * **CodeMirror Editors:** For professional-grade code input and syntax highlighting.
     * **"Before & After" View:** A side-by-side comparison of the original and refactored code.
@@ -89,7 +90,7 @@ Follow these steps to run the project locally.
     * Enter a public GitHub repository URL into the first input field.
     * Click "Analyze Repository."
 3.  **To optimize a code snippet:**
-    * Paste a Python function into the code editor.
+    * Paste a code into the code editor.
     * Click "Optimize Code."
 
 ---

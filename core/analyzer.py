@@ -1,4 +1,3 @@
-# core/analyzer.py
 import os
 from rich.console import Console
 from .llm_client import find_issues_in_code 

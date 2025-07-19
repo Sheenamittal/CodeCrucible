@@ -1,4 +1,3 @@
-# api/main_api.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
@@ -33,10 +32,10 @@ async def analyze_repository(request: RepoRequest):
         raise HTTPException(status_code=400, detail="Failed to clone repository.")
 
     try:
-        # This step is now disabled and will always pass
+       
         tests_ok, diagnostics = run_tests(repo_path)
         if not tests_ok:
-            # This block will not be reached with the new validator
+            
             raise HTTPException(status_code=400, detail=f"Validation failed: {diagnostics}")
             
         # 1. Find issues using the universal LLM analyzer
