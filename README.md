@@ -41,3 +41,59 @@ graph TD
     D --> E["LLM Client (Gets refactoring)"];
     E --> B;
     B -->|JSON Response| A;
+```
+
+* **Frontend:** A static single-page application located in the `/static` directory.
+* **Backend API (`/api`):** A FastAPI server that orchestrates the analysis.
+* **Core Logic (`/core`):** A modular library containing the logic for Git operations, code analysis, and LLM communication.
+
+---
+
+## Setup and Installation
+
+Follow these steps to run the project locally.
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+    cd your-repo-name
+    ```
+
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python3 -m venv project_env
+    source project_env/bin/activate
+    ```
+
+3.  **Install the dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Create a `.env` file** in the project root and add your LLM API key:
+    ```
+    API_KEY=your_llm_api_key_here
+    ```
+
+5.  **Run the API server:**
+    ```bash
+    uvicorn api.main_api:app
+    ```
+
+---
+
+## Usage
+
+1.  Once the server is running, open your browser and navigate to **`http://127.0.0.1:8000`**.
+2.  **To analyze a repository:**
+    * Enter a public GitHub repository URL into the first input field.
+    * Click "Analyze Repository."
+3.  **To optimize a code snippet:**
+    * Paste a Python function into the code editor.
+    * Click "Optimize Code."
+
+---
+
+
+
+
