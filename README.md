@@ -35,9 +35,9 @@ The project is a full-stack application with a clear separation between the back
 
 ```mermaid
 graph TD
-    A[Frontend UI<br>(HTML, CSS, JS, CodeMirror)] -->|HTTP POST Request| B(FastAPI Backend<br>/analyze-repo);
-    B --> C{Git Handler<br>(Clones Repo)};
-    C --> D{Analyzer<br>(Finds issues with LLM)};
-    D --> E{LLM Client<br>(Gets refactoring)};
+    A["Frontend UI (HTML, CSS, JS, CodeMirror)"] -->|HTTP POST Request| B("FastAPI Backend /analyze-repo");
+    B --> C{"Git Handler (Clones Repo)"};
+    C --> D["Analyzer (Finds issues with LLM)"];
+    D --> E["LLM Client (Gets refactoring)"];
     E --> B;
     B -->|JSON Response| A;
