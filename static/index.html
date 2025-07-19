@@ -20,7 +20,7 @@
             <article>
                 <form id="repo-form">
                     <label for="repo_url">Analyze GitHub Repository</label>
-                    <input type="text" id="repo_url" name="repo_url" placeholder="https://github.com/pallets-eco/flask-tutorial" required>
+                    <input type="text" id="repo_url" name="repo_url" placeholder="Enter a public GitHub repository URL..." required>
                     <button type="submit" id="repo-submit-button">Analyze Repository</button>
                 </form>
                 <hr>
@@ -41,7 +41,9 @@
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
     <script src="/static/script.js"></script>
 </body>
 </html>
