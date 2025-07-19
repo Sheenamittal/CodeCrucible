@@ -2,16 +2,12 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.12-blue)
 ![Framework](https://img.shields.io/badge/framework-FastAPI-green)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 This is a full-stack application that acts as an AI-powered pair programmer. You can give it a whole GitHub repository or just a single function, and it will provide intelligent suggestions for improvement across multiple languages.
 
 
 ---
 
-##  Demo
-
-![RefactorGen Demo](https://via.placeholder.com/800x450.png?text=Your+UI+Demo+Goes+Here)
 
 ## Overview
 
