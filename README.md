@@ -7,7 +7,8 @@ This is a full-stack application that acts as an AI-powered pair programmer. You
 
 
 ---
-
+## Demo
+![Refactor Demo](https://github.com/your-username/your-repo-name/blob/main/assets/your-demo-file.gif?raw=true)
 
 ## Overview
 
