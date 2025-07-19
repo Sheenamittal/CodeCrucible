@@ -1,49 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RefactorGen AI</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
     <main class="container">
-        <hgroup>
-            <h1>RefactorGen AI Assistant</h1>
-            <h2>Analyze, Refactor, and Optimize Your Code</h2>
-        </hgroup>
-        
-        <div class="grid">
-            <article>
-                <form id="repo-form">
-                    <label for="repo_url">Analyze GitHub Repository</label>
-                    <input type="text" id="repo_url" name="repo_url" placeholder="Enter a public GitHub repository URL..." required>
-                    <button type="submit" id="repo-submit-button">Analyze Repository</button>
-                </form>
-                <hr>
-                <form id="optimize-form">
-                    <label for="code-snippet">Optimize Code Snippet</label>
-                    <textarea id="code-snippet" name="code-snippet"></textarea>
-                    <button type="submit" id="optimize-submit-button">Optimize Code</button>
-                </form>
-            </article>
+      <hgroup>
+        <h1>Code Crucible</h1>
+        <h2>Analyze, Refactor, and Optimize Your Code</h2>
+      </hgroup>
 
-            <article id="results-container" aria-busy="false">
-                <h3>Results</h3>
-                <div id="results-output">
-                    <p>Awaiting analysis...</p>
-                </div>
-            </article>
-        </div>
+      <div class="grid">
+        <article>
+          <form id="repo-form">
+            <label for="repo_url">Analyze GitHub Repository</label>
+            <input
+              type="text"
+              id="repo_url"
+              name="repo_url"
+              placeholder="Enter a public GitHub repository URL..."
+              required
+            />
+            <button type="submit" id="repo-submit-button">
+              Analyze Repository
+            </button>
+          </form>
+          <hr />
+          <form id="optimize-form">
+            <label for="code-snippet">Optimize Code Snippet</label>
+            <textarea id="code-snippet" name="code-snippet"></textarea>
+            <button type="submit" id="optimize-submit-button">
+              Optimize Code
+            </button>
+          </form>
+        </article>
+
+        <article id="results-container" aria-busy="false">
+          <h3>Results</h3>
+          <div id="results-output">
+            <p>Awaiting analysis...</p>
+          </div>
+        </article>
+      </div>
     </main>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
     <script src="/static/script.js"></script>
-</body>
+  </body>
 </html>
