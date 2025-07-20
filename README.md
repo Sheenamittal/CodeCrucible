@@ -8,6 +8,7 @@ This is a full-stack application that acts as an AI-powered pair programmer. You
 
 ---
 ## Demo
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://codecrucible.onrender.com/)
 ![Refactor Demo](https://github.com/Sheenamittal/CodeCrucible/blob/main/assets/Screenshot%202025-07-20%20at%201.43.59%E2%80%AFAM.png)
 ![Optimization Demo](https://github.com/Sheenamittal/CodeCrucible/blob/main/assets/Screenshot%202025-07-20%20at%201.44.38%E2%80%AFAM.png)
 
