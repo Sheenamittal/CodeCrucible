@@ -1,4 +1,4 @@
-# RefactorGen AI Assistant
+# CodeCrucible
 
 ![Python Version](https://img.shields.io/badge/python-3.12-blue)
 ![Framework](https://img.shields.io/badge/framework-FastAPI-green)
